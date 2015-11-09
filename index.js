@@ -23,12 +23,12 @@ function calculateAverageCurrentPace(progressData) {
   return avgPace;
 }
 
-request.get('https://raw.githubusercontent.com/juristr/juristr.github.com/master/apps/ng2beta/data.json', function(err, githubData) {
-   if(err){
-      return console.log(err);
-   }
+request.get('https://raw.githubusercontent.com/juristr/juristr.github.com/master/apps/ng2beta/data.json', function (err, githubData) {
+  if (err) {
+    return console.log(err);
+  }
 
-  request.get('https://api.github.com/repos/angular/angular/milestones/49', function(err, githubMilestone) {
+  request.get('https://api.github.com/repos/angular/angular/milestones/49', function (err, githubMilestone) {
     if (err) {
       return console.log(err);
     }
@@ -55,20 +55,20 @@ request.get('https://raw.githubusercontent.com/juristr/juristr.github.com/master
     var changed = true;
 
     if (lastEntry && moment(lastEntry.date).isSame(moment(), 'day')) {
-      if(lastEntry.open !== open || lastEntry.closed !== closed) {
+      if (lastEntry.open !== open || lastEntry.closed !== closed) {
         // record the amount of issues being opened/resolved
         var _new = open - lastEntry.open;
-        if(_new > 0) {
+        if (_new > 0) {
           lastEntry.newOpen = lastEntry.newOpen || 0;
-          lastEntry.newOpen += _new;  
+          lastEntry.newOpen += _new;
         }
-        
+
         var _closed = closed - lastEntry.closed;
-        if(_closed > 0) {
+        if (_closed > 0) {
           lastEntry.newClosed = lastEntry.newClosed || 0;
-          lastEntry.newClosed += _closed;          
+          lastEntry.newClosed += _closed;
         }
-        
+
         lastEntry.open = open;
         lastEntry.closed = closed;
         lastEntry.percent = percent;
@@ -88,15 +88,15 @@ request.get('https://raw.githubusercontent.com/juristr/juristr.github.com/master
       });
     }
 
-    if(changed) {
-       github.lastupdated = moment().format();
+    if (changed) {
+      github.lastupdated = moment().format();
 
-       console.log('Writing:');
-       console.log(JSON.stringify(github));
+      console.log('Writing:');
+      console.log(JSON.stringify(github));
 
-       fs.writeFileSync(path.join(__dirname, '', 'data.json'), JSON.stringify(github));
-    }else{
-       console.log('nothing to write');
+      fs.writeFileSync(path.join(__dirname, '', 'data.json'), JSON.stringify(github));
+    } else {
+      console.log('nothing to write');
     }
-});
+  });
 });
