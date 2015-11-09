@@ -1,0 +1,15 @@
+{
+  "name": "ng2release-projection",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juri Strumpflohner",
+  "license": "MIT",
+  "dependencies": {
+    "http-request": "^0.7.0",
+    "moment": "^2.10.6"
+  }
+}
